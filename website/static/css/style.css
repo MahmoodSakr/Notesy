@@ -1,0 +1,17 @@
+header {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: red;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.delete-note-span {
+  color: red;
+}
+.no-notes {
+  color: green;
+  margin: 30px auto; 
+  text-align: center;
+  }
