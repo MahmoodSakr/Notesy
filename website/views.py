@@ -82,3 +82,5 @@ def deletenote2():
     else:
         flash("Note is not founded on the DB")
         return redirect('/')
+
+ 
