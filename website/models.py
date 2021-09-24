@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     # to define an one to many relation between User&Note as each user can have many notes
     notes = db.relationship('Note') 
     # notes column store all notes related to each user as a list [] so you can loop over it 
-    # to get each note as a row of the Note table
+    # to get each note as a note row from the Note table
 
 # create a model to describe the schema for the Notes table
 class Note(db.Model):
@@ -31,11 +31,17 @@ class Note(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
 
 
-''' DB Model 
-1) An oop class describe the schema of the table in db and its variables represent the columns
-2) Its name as a class begins with Capital letter, where in db begins with small letter
-3) When be called for the first time, your table is created in db
-4) Any instance of this class represent a new row of the table 
-5) As it inherit the db.Model class, so the Model class object can do any sql operation 
-on the table of the db like select,update,delete, etc.
+'''
+Note how we never defined a __init__ constructor method on the User class? 
+That’s because SQLAlchemy adds an implicit constructor to all model classes which 
+accepts keyword arguments for all its columns and relationships.
+
+If you decide to override that implicit constructor for any reason, make sure to keep 
+to make it accepting **kwargs and call the super constructor with those **kwargs as following
+
+class Table(db.Model):
+    def __init__(self, **kwargs):
+        super(Table, self).__init__(**kwargs)
+        # do custom stuff
+
 '''

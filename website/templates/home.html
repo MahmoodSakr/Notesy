@@ -1,8 +1,6 @@
-{% extends 'base.html' %} {% block title %}
-  Home Page  
-{% endblock %} 
-{% block content %}
-<header> Hello {{user.first_name}} in your profile</header>
+{% extends 'base.html' %} {% block title %} Home Page {% endblock %} {% block
+content %}
+<header>Hello {{user.first_name}} in your profile</header>
 <!-- note represent a row of Note table, you can get its field by note.fieldName-->
 <!-- user.notes >> considered as list [] has all notes  -->
 {% if not user.notes %}
@@ -11,17 +9,23 @@
 <ul class="list-group list-group-flush" id="notes">
   {% for note in user.notes %}
   <li class="list-group-item">
-      {{ note.data }}
+    <form method="post" action="/delete-note-2">
+    {{ note.data }}
     <button type="button" class="close" onClick="deleteNote({{ note.id }})">
-      <span class ="delete-note-span" aria-hidden="true">&times;</span>
-    </button>
+      &times;  
+      </button>
+      <input type="text" name="noteid" value="{{ note.id }}" hidden />
+      <button type="submit" class="close">
+        &times;      
+      </button>
+    </form>
   </li>
   {% endfor %}
 </ul>
 {% endif %}
 <form method="POST" action="/">
   <textarea name="note" id="note" class="form-control"></textarea>
-  <br/>
+  <br />
   <div align="center">
     <button type="submit" class="btn btn-primary">Add Note</button>
   </div>

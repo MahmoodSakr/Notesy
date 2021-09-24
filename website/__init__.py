@@ -60,7 +60,3 @@ def createDB(app):
         print('db is existed at its path')
 
 
-app = create_app()
-# will be true if you run this module from this file
-if __name__ == '__main__':
-    app.run(debug=True)

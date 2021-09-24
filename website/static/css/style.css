@@ -7,7 +7,7 @@ header {
   font-weight: bold;
 }
 
-.delete-note-span {
+button.close{
   color: red;
 }
 .no-notes {
