@@ -13,9 +13,9 @@ views = Blueprint('views', __name__)
 @login_required
 def home():
     if request.method == 'POST':
-        note = request.form.get('note')
+        note = request.form.get('notedata')
         # validate the note
-        if len(note) < 1:
+        if note=="":
             flash('Your note is empty ! ', category='error')
         else:
             new_note = Note(data=note, user_id=current_user.id)
@@ -29,6 +29,7 @@ def home():
 
 
 @views.route('delete-note', methods=['POST'])
+@login_required
 def deletenote():
     # grap the data body from the request
     # data come with the request as body attribute {} in json format
@@ -52,10 +53,10 @@ def deletenote():
     else:
         return jsonify({'status': "Note is not founded on the DB"})
 
+
 # handle the form delete request and delete the note with its id
-
-
 @views.route('delete-note-2', methods=['post'])
+@login_required
 def deletenote2():
     # grap the data body from the request
     # data come with the request as body attribute {} in json format
@@ -83,4 +84,38 @@ def deletenote2():
         flash("Note is not founded on the DB")
         return redirect('/')
 
- 
+
+@views.route('update-note',methods=['post','get'])
+@login_required
+def update():
+    print(11111111111111111)
+    # display the update html page
+    if request.method=="GET" :
+        noteid = request.args.get('noteid')
+        note = db.session.query(Note).get(noteid)
+        # note = Note.query.get(noteid)
+        if note is None:
+            flash('Note is not existed in DB ! ', category='error')
+            return redirect('/')
+        elif note.user_id != current_user.id:
+            flash('You are not authorized to update this note',category='error')
+            return redirect('/')
+        else:
+            return render_template('updateNote.html', user=current_user, note=note)
+    elif request.method=="POST":
+        noteid = request.form.get('noteid')
+        notedata = request.form.get('notedata')
+        note = Note.query.get(noteid)
+        if note.user_id != current_user.id:
+            flash('You are not authorized to update this note',category='error')
+            return redirect('/')
+        elif notedata == "":
+            flash(f'{current_user.first_name} you cannot update your message with empty text !',category='error')
+            return redirect('/')
+        else:
+            # update the content of note
+            note.data = notedata
+            db.session.add(note)
+            db.session.commit()        
+            flash('Note is updated successfully', category='success')
+            return redirect('/')

@@ -1,34 +1,48 @@
 {% extends 'base.html' %} {% block title %} Home Page {% endblock %} {% block
 content %}
-<header>Hello {{user.first_name}} in your profile</header>
+<div class="header">Hello {{user.first_name}} in your profile</div>
 <!-- note represent a row of Note table, you can get its field by note.fieldName-->
 <!-- user.notes >> considered as list [] has all notes  -->
 {% if not user.notes %}
-<h2 class="no-notes">There are no notes, go below and add your notes.</h2>
+<h3 class="no-notes">There are no notes, go below and add your notes.</h3>
 {% else %}
 <ul class="list-group list-group-flush" id="notes">
   {% for note in user.notes %}
   <li class="list-group-item">
-    <form method="post" action="/delete-note-2">
-    {{ note.data }}
-    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
-      &times;  
-      </button>
+    <form>
+      <section class="notedata">{{note.data }}</section>
       <input type="text" name="noteid" value="{{ note.id }}" hidden />
-      <button type="submit" class="close">
-        &times;      
+      <!-- Delete the note with send ajax request to the server -->
+      <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+        Delete
       </button>
+      <!-- update the note by the form request not ajax request -->
+      <button
+        type="submit"
+        class="close"
+        formaction="/update-note"
+        formmethod="get">
+        Update
+      </button>
+      <!-- This button is alternative to delete the note by the form request not ajax request -->
+      <!-- <button type="submit" class="close" formaction="/delete-note-2" formmethod="post">
+        &times;      
+      </button> -->
     </form>
   </li>
   {% endfor %}
 </ul>
 {% endif %}
 <form method="POST" action="/">
-  <textarea name="note" id="note" class="form-control"></textarea>
+  <textarea
+    name="notedata"
+    id="notedata"
+    class="form-control"
+    placeholder="Type your note here ..."
+  ></textarea>
   <br />
   <div align="center">
     <button type="submit" class="btn btn-primary">Add Note</button>
   </div>
 </form>
- 
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block title %} Update Notes {% endblock %} 
+{% block content %}
+<div class="header">Hello {{user.first_name}} in your profile</div>
+<h3>You can update your note shown below :</h3>
+<br>
+<form method="post" action="/update-note">
+<textarea id="notedata" name="notedata" class="form-control" required>
+{{note.data}}
+</textarea>
+  <input type="text" name="noteid" value="{{ note.id }}" hidden />
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Update Note</button>
+  </div>
+</form>
+{% endblock %}

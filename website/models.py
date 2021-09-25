@@ -28,7 +28,7 @@ class Note(db.Model):
     # to attach the two tables (User,Note) based on the FK column
     # user in small char denote the table inside the sql db itself
     # User in capital char denote the model class
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
 '''

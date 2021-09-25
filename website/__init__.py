@@ -34,8 +34,7 @@ def create_app():
     from .models import User, Note
     # if it doen't created before, it will be created, otherwise nothing will be executed
     createDB(app)
-    #
-
+    
     # cutomization the loggin manager
     login_manager = LoginManager()
     # the flask will redirect you to this route if any route function required user login 

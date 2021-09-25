@@ -1,17 +1,27 @@
-header {
+.header {
   margin-top: 30px;
   margin-bottom: 20px;
   text-align: center;
-  color: red;
+  color: #064992;
   font-size: 40px;
   font-weight: bold;
 }
 
 button.close{
   color: red;
+  margin-left: 8px;
+  display: inline-block;
+  font-size: 1.35rem;
+  padding: 0px;
 }
 .no-notes {
   color: green;
   margin: 30px auto; 
   text-align: center;
   }
+
+ section.notedata{
+   color : green;
+   display: inline-block;
+   font-size:larger;
+ }
