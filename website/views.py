@@ -88,7 +88,6 @@ def deletenote2():
 @views.route('update-note',methods=['post','get'])
 @login_required
 def update():
-    print(11111111111111111)
     # display the update html page
     if request.method=="GET" :
         noteid = request.args.get('noteid')
