@@ -1,5 +1,6 @@
 from . import db  # == from website import db object
 from sqlalchemy.sql import func  # this function return the current time
+from datetime import datetime
 """ UserMixin provides default implementations for methods which Flask-Login expects to be
 have by the user objects """
 # flask-login module helps us log users, and user object needs to inherit from the UserMixin
@@ -24,7 +25,9 @@ class User(db.Model, UserMixin):
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.Text())
-    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    currentTime = func.now() 
+    # currentTime = datetime.utcnow()
+    date = db.Column(db.DateTime(timezone=True), default=currentTime)
     # to attach the two tables (User,Note) based on the FK column
     # user in small char denote the table inside the sql db itself
     # User in capital char denote the model class
